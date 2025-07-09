@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: -4151173249093088978}
   - component: {fileID: 7580984043493155009}
   m_Layer: 0
-  m_Name: Rocket
-  m_TagString: Rocket
+  m_Name: Racket
+  m_TagString: Racket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,3 +176,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothness: 0.1
+  maxDeltaY: 0.5

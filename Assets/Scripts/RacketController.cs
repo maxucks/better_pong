@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class RocketController : MonoBehaviour {
+public class RacketController : MonoBehaviour {
   [Header("Props")]
   public float smoothness = .1f;
   public float maxDeltaY = .5f;

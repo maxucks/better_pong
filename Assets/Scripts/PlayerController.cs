@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-  private RocketController controller;
+  private RacketController controller;
 
   void Start() {
-    controller = GetComponent<RocketController>();
+    controller = GetComponent<RacketController>();
   }
 
   void Update() {

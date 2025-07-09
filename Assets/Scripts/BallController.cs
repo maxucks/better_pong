@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
     [Header("Props")]
-    public float speed = 6f;
+    public float minSpeed = 6f;
+    public float maxSpeed = 12f;
     public float rocketVelocityImpact = 20f;
 
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
 
+    void Update() {
+        Debug.Log($"speed = {currentVelocity.magnitude}");
+    }
+
     void Start() {
         rb = GetComponent<Rigidbody2D>();
 
-        var startVelocity = speed * new Vector2(1, Random.Range(-1, 1)).normalized;
+        var startVelocity = minSpeed * new Vector2(1, Random.Range(-1, 1)).normalized;
         UpdateVelocity(startVelocity);
     }
 
@@ -20,8 +25,8 @@ public class BallController : MonoBehaviour {
 
         if (other.CompareTag(Tags.Wall)) {
             OnWallCollision();
-        } else if (other.CompareTag(Tags.Rocket)) {
-            OnRocketCollision(other);
+        } else if (other.CompareTag(Tags.Racket)) {
+            OnRacketCollision(other);
         }
     }
 
@@ -43,10 +48,10 @@ public class BallController : MonoBehaviour {
         UpdateVelocity(newVelocity);
     }
 
-    void OnRocketCollision(GameObject rocket) {
-        var controller = rocket.GetComponent<RocketController>();
+    void OnRacketCollision(GameObject racket) {
+        var controller = racket.GetComponent<RacketController>();
         if (controller == null) {
-            Debug.LogError("BallController.OnRocketCollision: RocketController is missing on rocket");
+            Debug.LogError("BallController.OnRacketCollision: RacketController is missing on racket");
             return;
         }
 
@@ -65,7 +70,9 @@ public class BallController : MonoBehaviour {
     }
 
     void UpdateVelocity(Vector2 velocity) {
-        currentVelocity = velocity;
-        rb.linearVelocity = velocity;
+        var newVelocity = velocity.ClampMinMaxMagnitude(minSpeed, maxSpeed);
+
+        currentVelocity = newVelocity;
+        rb.linearVelocity = newVelocity;
     }
 }
