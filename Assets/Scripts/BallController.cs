@@ -7,11 +7,7 @@ public class BallController : MonoBehaviour {
     public float rocketVelocityImpact = 20f;
 
     private Rigidbody2D rb;
-    private Vector2 currentVelocity;
-
-    void Update() {
-        Debug.Log($"speed = {currentVelocity.magnitude}");
-    }
+    public Vector2 currentVelocity { get; private set; }
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -38,9 +34,6 @@ public class BallController : MonoBehaviour {
         } else if (other.CompareTag(Tags.PlayerGate)) {
             PlayerGateTriggered();
         }
-
-        // TODO: remove
-        transform.position = Vector3.zero;
     }
 
     void OnWallCollision() {
@@ -62,11 +55,11 @@ public class BallController : MonoBehaviour {
     }
 
     void EnemyGateTriggered() {
-        Debug.Log("You won");
+        GameManager.Instance.GameOver(true);
     }
 
     void PlayerGateTriggered() {
-        Debug.Log("Game ove");
+        GameManager.Instance.GameOver(false);
     }
 
     void UpdateVelocity(Vector2 velocity) {
