@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour {
     [Header("Props")]
-    public float speed = 6;
+    public float speed = 6f;
+    public float rocketVelocityImpact = 20f;
 
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
@@ -50,8 +51,7 @@ public class BallController : MonoBehaviour {
         }
 
         var newVelocity = currentVelocity.InvertX();
-        newVelocity += controller.Velocity;
-        Debug.Log($"{currentVelocity} + {controller.Velocity} => {newVelocity}");
+        newVelocity += controller.Velocity * rocketVelocityImpact;
 
         UpdateVelocity(newVelocity);
     }
